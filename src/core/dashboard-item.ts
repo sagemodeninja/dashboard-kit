@@ -1,5 +1,4 @@
 import {
-    LitElement,
     TemplateResult,
     CSSResultGroup,
     PropertyValueMap,
@@ -8,10 +7,9 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { SizeDefinition } from './types';
+import { ColorSchemeComponent } from './color-scheme-component';
 
-export type colorSchemes = 'inherit' | 'light' | 'dark';
-
-export class DashboardItem extends LitElement {
+export class DashboardItem extends ColorSchemeComponent {
     private _size: number = 1;
 
     static styles = css`
@@ -89,30 +87,23 @@ export class DashboardItem extends LitElement {
         this._size = value;
     }
 
-    @property({ attribute: 'preferred-color-scheme' })
-    public preferredColorScheme: colorSchemes = 'inherit';
-
     constructor() {
         super();
-        
-        this.resolveColorScheme();
+
+        this.classList.add('dashboard-item');
         this.setSize();
     }
 
-    public render() {
+    public override setColorScheme(colorScheme: string): void {
+        this.dataset.colorScheme = colorScheme;
+    }
+
+    protected override render() {
         return html`
         <div class="base">
             ${this.renderContent()}
         </div>
         `;
-    }
-
-    public updated(changedProperties: PropertyValueMap<any>) {
-        if (changedProperties.has('preferredColorScheme'))
-            this.resolveColorScheme();
-
-        if (changedProperties.has('size'))
-            this.setSize();
     }
 
     /**
@@ -122,18 +113,11 @@ export class DashboardItem extends LitElement {
         return null;
     }
 
-    private resolveColorScheme() {
-        let colorScheme = this.preferredColorScheme;
-        
-        if (!this.preferredColorScheme || this.preferredColorScheme == 'inherit')
-        {
-            const media = '(prefers-color-scheme: dark)';
-            const isDark = window.matchMedia && window.matchMedia(media).matches;
+    protected override updated(changedProperties: PropertyValueMap<any>) {
+        super.updated(changedProperties);
 
-            colorScheme = !isDark ? 'light' : 'dark';
-        }
-
-        this.dataset.colorScheme = colorScheme;
+        if (changedProperties.has('size'))
+            this.setSize();
     }
 
     private setSize() {

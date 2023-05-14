@@ -2,16 +2,16 @@ import '../public/css/app.css';
 
 import './components'
 import './core'
-import { DashboardBarGraph } from './components/dashboard-bar-graph';
-import { colorSchemes } from './core/dashboard-item';
+import { DashboardKit } from './core';
+import { ColorScheme } from './core/types';
 
 let colorScheme: string;
 let toggleColorSchemeBtn: HTMLButtonElement;
-let barGraph: DashboardBarGraph;
+let dashboard: DashboardKit;
 
 document.addEventListener('DOMContentLoaded', () => {
     toggleColorSchemeBtn = document.getElementById('toggle_color_scheme') as HTMLButtonElement;
-    barGraph = document.getElementById('bar_graph') as DashboardBarGraph;
+    dashboard = document.getElementById('dashboard') as DashboardKit;
 
     toggleColorSchemeBtn.addEventListener('click', () => {
         const isDark = colorScheme != 'Dark';
@@ -32,7 +32,7 @@ function resolveColorScheme() {
 }
 
 function toggleColorScheme() {
-    barGraph.preferredColorScheme = colorScheme.toLowerCase() as colorSchemes;
+    dashboard.preferredColorScheme = colorScheme.toLowerCase() as ColorScheme;
     toggleColorSchemeBtn.innerText = `Toggle: ${colorScheme}`;
     document.body.classList.toggle('dark', colorScheme == 'Dark');
 }

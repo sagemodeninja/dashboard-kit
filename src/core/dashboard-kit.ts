@@ -1,13 +1,14 @@
 import {
-    LitElement,
+    PropertyValueMap,
     html,
-    css,
-    PropertyValueMap
+    css
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, queryAssignedElements } from 'lit/decorators.js';
+import { ColorSchemeComponent } from './color-scheme-component';
+import { DashboardItem } from './dashboard-item';
 
 @customElement('dashboard-kit')
-export class DashboardKit extends LitElement {
+export class DashboardKit extends ColorSchemeComponent {
     static styles = css`
         :host {
             box-sizing: border-box;
@@ -20,6 +21,9 @@ export class DashboardKit extends LitElement {
         }
     `;
 
+    @queryAssignedElements({ selector: '.dashboard-item' })
+    private _items: Array<DashboardItem>;
+
     @property()
     public gap: number = 12;
 
@@ -27,16 +31,22 @@ export class DashboardKit extends LitElement {
         super();
     }
 
-    public render() {
+    protected override render() {
         return html`<slot></slot>`;
     }
 
-    public updated(changedProperties: PropertyValueMap<any>): void {
+    protected override updated(changedProperties: PropertyValueMap<any>): void {
+        super.updated(changedProperties);
+
         if (changedProperties.has('gap'))
         {
             this.style.gap = `${this.gap}px`;
             this.style.padding = `${this.gap}px`;
         }
+    }
+
+    protected override setColorScheme(colorScheme: string): void {
+        this._items.forEach(i => i.setColorScheme(colorScheme));
     }
 }
 

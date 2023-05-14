@@ -1,3 +1,4 @@
+import { ColorScheme } from './color-scheme'
 import { SizeDefinition } from './size-definition'
 
-export { SizeDefinition }
+export { ColorScheme, SizeDefinition }
