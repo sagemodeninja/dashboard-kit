@@ -5,8 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Kit</title>
+    <style>
+        body {
+            background-color: #fafafa;
+            color-scheme: light;
+        }
+
+        body.dark {
+            background-color: #1c1c1c;
+            color-scheme: dark;
+        }
+    </style>
 </head>
 <body>
-    <bar-graph preferred-color-scheme="inherit"></bar-graph>
+    <button id="toggle_color_scheme">Toggle: Light</button>
+    <bar-graph id="bar_graph" preferred-color-scheme="inherit"></bar-graph>
 </body>
 </html>
