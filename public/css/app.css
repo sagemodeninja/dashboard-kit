@@ -1,0 +1,21 @@
+body {
+    background-color: #fafafa;
+    color-scheme: light;
+    height: 100vh;
+    margin: 0;
+}
+
+body.dark {
+    background-color: #1c1c1c;
+    color-scheme: dark;
+}
+
+header {
+    height: 50px;
+    width: 100%;
+}
+
+#content {
+    height: calc(100% - 50px);
+    width: 100%;
+}

@@ -7,10 +7,13 @@ import {
     css
 } from 'lit';
 import { property } from 'lit/decorators.js';
+import { SizeDefinition } from './types';
 
 export type colorSchemes = 'inherit' | 'light' | 'dark';
 
 export class DashboardItem extends LitElement {
+    private _size: number = 1;
+
     static styles = css`
         :host {
             --base-border: rgba(0 0 0 / 5.78%);
@@ -31,9 +34,7 @@ export class DashboardItem extends LitElement {
         }
 
         :host {
-            display: flex;
-            height: min-content;
-            width: min-content;
+            aspect-ratio: 1 / 1;
         }
 
         .base {
@@ -41,9 +42,9 @@ export class DashboardItem extends LitElement {
             border: 1px inset var(--base-border);
             border-radius: 7px;
             box-shadow: 0px 2px 4px 0px var(--base-shadow-rest);
-            height: 250px;
+            height: 100%;
             position: relative;
-            width: 250px;
+            width: 100%;
         }
 
         :host(:hover) .base {
@@ -56,12 +57,46 @@ export class DashboardItem extends LitElement {
         }
     ` as CSSResultGroup;
 
+    protected get sizeDefinitions(): SizeDefinition[] {
+        return [{
+            size: 1,
+            colSpan: 1,
+            rowSpan: 1
+        },{
+            size: 1.5,
+            colSpan: 2,
+            rowSpan: 1
+        },{
+            size: 2,
+            colSpan: 2,
+            rowSpan: 2
+        }]
+    };
+
+    @property()
+    public get size() {
+        return this._size;
+    }
+
+    public set size(value: number) {
+        const valid = this.sizeDefinitions.some(d => d.size == value);
+        
+        if (!valid) {
+            console.error(`Size "${value}" is not valid.`);
+            return;
+        }
+
+        this._size = value;
+    }
+
     @property({ attribute: 'preferred-color-scheme' })
     public preferredColorScheme: colorSchemes = 'inherit';
 
     constructor() {
         super();
+        
         this.resolveColorScheme();
+        this.setSize();
     }
 
     public render() {
@@ -75,6 +110,9 @@ export class DashboardItem extends LitElement {
     public updated(changedProperties: PropertyValueMap<any>) {
         if (changedProperties.has('preferredColorScheme'))
             this.resolveColorScheme();
+
+        if (changedProperties.has('size'))
+            this.setSize();
     }
 
     /**
@@ -96,5 +134,15 @@ export class DashboardItem extends LitElement {
         }
 
         this.dataset.colorScheme = colorScheme;
+    }
+
+    private setSize() {
+        const size = this.sizeDefinitions.find(d => d.size == this._size);
+        const colSpan = size.colSpan;
+        const rowSpan = size.rowSpan;
+
+        this.style.gridColumn = `auto / span ${colSpan}`;
+        this.style.gridRow = `auto / span ${rowSpan}`;
+        this.style.aspectRatio = `${colSpan} / ${rowSpan}`;
     }
 }
