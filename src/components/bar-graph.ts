@@ -6,7 +6,7 @@ import { DashboardItem } from '../core/dashboard-item';
 export class BarGraph extends DashboardItem {
     static internalStyles = css`
         span {
-            color: blue;
+            color: var(--color);
         }
     `;
 
