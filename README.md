@@ -25,10 +25,14 @@ Initialize repo:
 ```cli
 git clone https://github.com/sagemodeninja/dashboard-kit.git
 cd dashboard-kit
+```
+
+Install the necessary dependencies: 
+```
 npm install
 ```
 
-Build project:
+Build the project:
 ```
 npm run build
 ```
