@@ -1,21 +1,39 @@
-# Dashboard Kit
+# DashboardKit
 
-Dashboard Kit.
+DashboardKit is a library with a collection of web components-based dashboard elements.
 
-## Getting Started
+## Documentation
 
-1. Make sure that [Node.js](https://nodejs.org/) is installed on your machine.
+See the [wiki](https://github.com/sagemodeninja/dashboard-kit/wiki) for guides on how to use the components.\
+Or, see the [demo site](https://dev.garyantier.com/dashboard-kit) for examples and demos.
 
-2. Install required dependencies:
+<!-- TODO: Add wiki/documentation. -->
 
+## Installation
+
+From within your project, run:
+
+```npm i @sagemodeninja/dashboard-kit```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+### Set up
+
+Initialize repo:
 ```cli
+git clone https://github.com/sagemodeninja/dashboard-kit.git
+cd dashboard-kit
 npm install
 ```
 
-3. Run the demo:
-
-```cli 
-npm start
+Build project:
+```
+npm run build
 ```
 
-4. View demo by visiting http://localhost:3004/.
+Run a local demo:
+```
+npm start
+```
