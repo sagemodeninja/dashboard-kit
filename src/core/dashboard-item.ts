@@ -41,7 +41,6 @@ export class DashboardItem extends ColorSchemeComponent {
             border-radius: 7px;
             box-shadow: 0px 2px 4px 0px var(--base-shadow-rest);
             height: 100%;
-            position: relative;
             width: 100%;
         }
 
