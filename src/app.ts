@@ -1,4 +1,4 @@
-import '../public/css/app.css';
+import '../public/css/demo.css';
 
 import './components'
 import './core'

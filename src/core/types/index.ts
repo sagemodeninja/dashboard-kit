@@ -1,4 +1,2 @@
-import { ColorScheme } from './color-scheme'
-import { SizeDefinition } from './size-definition'
-
-export { ColorScheme, SizeDefinition }
+export * from './color-scheme'
+export * from './size-definition'

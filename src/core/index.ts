@@ -1,5 +1,3 @@
-import { ColorSchemeComponent } from './color-scheme-component'
-import { DashboardKit } from './dashboard-kit'
-import { DashboardItem } from './dashboard-item'
-
-export { ColorSchemeComponent, DashboardKit, DashboardItem }
+export * from './color-scheme-component'
+export * from './dashboard-kit'
+export * from './dashboard-item'
